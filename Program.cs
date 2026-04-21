@@ -4,7 +4,7 @@ using Windows.Storage.Streams;
 
 const string SERVICE_UUID = "a07498ca-ad5b-474e-940d-16f1fbe7e8cd";
 const string CHAR_UUID    = "51ff12bb-3ed8-46e5-b4f9-d64e2fec021b";
-const string DEVICE_NAME  = "BLE-Controller";
+string DEVICE_NAME  = Environment.MachineName;
 
 // --- Create GATT Service ---
 var serviceResult = await GattServiceProvider.CreateAsync(Guid.Parse(SERVICE_UUID));
@@ -48,7 +48,6 @@ characteristic.WriteRequested += async (sender, args) =>
     var msg     = System.Text.Encoding.UTF8.GetString(data).Trim();
     var ts      = DateTime.Now.ToString("HH:mm:ss.fff");
     Console.WriteLine($"[{ts}] Input: {msg}");
-    request.Respond();
 };
 
 // --- Start Advertising ---
